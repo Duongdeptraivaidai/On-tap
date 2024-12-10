@@ -1,3 +1,4 @@
+```c
 #include<iostream>
 #define MAX 1000
 using namespace std;
@@ -163,3 +164,4 @@ int main() {
 	NhapMang(arr, n,e);
 	XuatMang(arr, n,e);
 }
+```
