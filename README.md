@@ -3,7 +3,7 @@
 #define MAX 1000
 using namespace std;
 
-int NhapMang(int arr[], int n,int e) {
+int NhapMang(int arr[], int n, int e) {
 	cout << "Nhap mang cac so nguyen: ";
 	for (int i = 0; i < n; i++) {
 		cin >> arr[i];
@@ -45,21 +45,22 @@ bool soGanh(int arr[], int n) {
 	return false;
 }
 bool ktSoNT(int x) {
-		if (x < 2)
+	if (x < 2)
+		return false;
+	for (int i = 2; i <= sqrt(x); i++)
+		if (x % i == 0)
 			return false;
-		for (int i = 2; i <= sqrt(x); i++)
-			if (x % i == 0)
-				return false;
-		return true;
+	return true;
 }
 void LietKeNT(int arr[], int n) {
 	for (int i = 0; i < n; i++) {
 		if (ktSoNT(arr[i]))cout << arr[i] << " ";
 	}
 }
-void demChuSo(int a[], int n) {
+void demChuSo(int arr[], int n) {
+	int count = 0;
 	for (int i = 0; i < n; ++i) {
-		int temp = a[i], count = 0;
+		int temp = arr[i];
 		while (temp > 0) {
 			++count;
 			temp /= 10;
@@ -67,7 +68,7 @@ void demChuSo(int a[], int n) {
 		cout << count << " ";
 	}
 }
-int timsolonnhat(int arr[],int  n) {
+int timsolonnhat(int arr[], int  n) {
 	int max = arr[0];
 	for (int i = 1; i < n; i++) {
 		if (max < arr[i])max = arr[i];
@@ -84,21 +85,21 @@ int timsonhonhat(int arr[], int n) {
 int timsoChanlonhat(int arr[], int n) {
 	int maxChan = arr[0];
 	for (int i = 1; i < n; i++) {
-		if (maxChan < (arr[i] % 2 == 0))maxChan=arr[i];
+		if (maxChan < (arr[i] % 2 == 0))maxChan = arr[i];
 	}return maxChan;
 }
 void tangDan(int arr[], int n) {
-	for (int i = 0; i < n - 1; i++) {
-		for (int j = i + 1; j < n; j++) {
+	for (int i = 0; i <= n - 1; ++i) {
+		for (int j = i + 1; j < n; ++j) {
 			if (arr[i] > arr[j]) swap(arr[i], arr[j]);
 		}cout << arr[i];
 	}
 }
 void giamDanChuSo(int arr[], int n) {
-	for (int i = 0; i < n - 1; i++) {
+	for (int i = 0; i <= n - 1; i++) {
 		for (int j = i + 1; j < n; j++) {
 			if (arr[i] % 10 < arr[j] % 10) swap(arr[i], arr[j]);
-		
+
 		}cout << arr[i];
 	}
 }
@@ -107,24 +108,31 @@ void tachChanLe(int arr[], int chan[], int le[], int n) {
 	for (int i = 0; i < n; ++i) {
 		if (arr[i] % 2) le[countLe++] = arr[i];
 		else chan[countChan++] = arr[i];
+	}cout << "chan: " << countChan << endl;
+	cout << "le: " << countLe;
+}
+void themGiaTri(int arr[], int n) {
+	int k, x;
+	cout << "Nhap gia tri: "; cin >> x;
+	cout << "Nhap vi tri: "; cin >> k;
+	for (int i = n - 1; i >= k; i--) {
+		arr[i + 1] = arr[i];
+	}
+	arr[k] = x;
+	++n;
+	for (int i = 0; i < n; i++) {
+		cout << arr[i] << " ";
 	}
 }
-void themGiaTri(int a[], int n) {
-	int value, x;
-	cout << "Nhap gia tri: "; cin >> value;
-	cout << "Nhap vi tri: "; cin >> x;
-	for (int i = n + 1; i > x; --i) a[i] = a[i - 1];
-	a[x] = value;
-}
-void themGiaTriTangDan(int a[], int n) {
+void themGiaTriTangDan(int arr[], int n) {
 	int value;
 	cout << "Nhap gia tri: "; cin >> value;
 	for (int i = 1; i < n + 1; ++i) {
-		if (value >= a[i - 1] && value <= a[i]) {
-			for (int j = n + 1; j > i; --j) a[j] = a[j - 1];
-			a[i] = value;
+		if (value >= arr[i - 1] && value <= arr[i]) {
+			for (int j = n + 1; j > i; --j) arr[j] = arr[j - 1];
+			arr[i] = value;
 			break;
-		}
+		}cout << arr[i];
 	}
 }
 
@@ -132,25 +140,25 @@ void themGiaTriTangDan(int a[], int n) {
 
 int XuatMang(int arr[], int n, int e) {
 
-		switch (e) {
-		case 2: cout << "Xuat mang cac so nguyen: "; cout << XuatMangcacsonguyen(arr, n); break;
-		case 3: cout << "Tinh tong cac phan tu trong mang: "; cout << TinhTong(arr, n); break;
-		case 4: cout << "Tinh tong cac phan tu la so le: "; cout << Tongsole(arr, n); break;
-		case 5: cout << "Dem cac phan tu la so chan: "; cout << Demphantu(arr, n); break;
-		case 6: cout << "Kiem tra trong mang co ton tai so ganh hay khong?  "; soGanh(arr, n); break;
-		case 7: cout << "Liet ke so phan tu la so nguyen to: "; LietKeNT(arr, n); break;
-		case 8: cout << "Xuat ra chu so cua moi phan tu: "; demChuSo(arr, n); break;
-		case 9: cout << "Tim gia tri lon nhat trong mang: "; cout << timsolonnhat(arr, n); break;
-		case 10: cout << "Tim gia tri be nhat trong mang : "; cout << timsonhonhat(arr, n); break;
-		case 11: cout << "Tim gia tri chan lon nhat trong mang: "; cout << timsoChanlonhat(arr, n); break;
-		case 12: cout << "Sap xep tang dan: "; tangDan(arr, n); break;
-		case 13: cout << "Sap xep giam dan theo chu so hang don vi cua moi so : "; giamDanChuSo(arr, n); break;
-		case 14: cout << "Tach mang thanh mot mang so chan va mot mang so le : "; break;
-		case 15: cout << "Them mot gia tri vao vi tri bat ky trong mang: "; themGiaTri(arr, n); break;
-		case 16: cout << "Them mot gia tri vao trong mang da xap xep tang dan ma mang van tang dan: "; themGiaTriTangDan(arr, n); break;
-		case 0: cout << "Thoat: "; break;
-		}return 0;
-	}
+	switch (e) {
+	case 2: cout << "Xuat mang cac so nguyen: "; cout << XuatMangcacsonguyen(arr, n); break;
+	case 3: cout << "Tinh tong cac phan tu trong mang: "; cout << TinhTong(arr, n); break;
+	case 4: cout << "Tinh tong cac phan tu la so le: "; cout << Tongsole(arr, n); break;
+	case 5: cout << "Dem cac phan tu la so chan: "; cout << Demphantu(arr, n); break;
+	case 6: cout << "Kiem tra trong mang co ton tai so ganh hay khong?  "; if (soGanh(arr, n))cout << "yes"; else cout<<"No"; break;
+	case 7: cout << "Liet ke so phan tu la so nguyen to: "; LietKeNT(arr, n); break;
+	case 8: cout << "Xuat ra chu so cua moi phan tu: "; demChuSo(arr, n); break;
+	case 9: cout << "Tim gia tri lon nhat trong mang: "; cout << timsolonnhat(arr, n); break;
+	case 10: cout << "Tim gia tri be nhat trong mang : "; cout << timsonhonhat(arr, n); break;
+	case 11: cout << "Tim gia tri chan lon nhat trong mang: "; cout << timsoChanlonhat(arr, n); break;
+	case 12: cout << "Sap xep tang dan: "; tangDan(arr, n); break;
+	case 13: cout << "Sap xep giam dan theo chu so hang don vi cua moi so : "; giamDanChuSo(arr, n); break;
+	case 14: cout << "Tach mang thanh mot mang so chan va mot mang so le : "; break;
+	case 15: cout << "Them mot gia tri vao vi tri bat ky trong mang: "; themGiaTri(arr, n); break;
+	case 16: cout << "Them mot gia tri vao trong mang da xap xep tang dan ma mang van tang dan: "; themGiaTriTangDan(arr, n); break;
+	case 0: cout << "Thoat: "; break;
+	}return 0;
+}
 
 
 int main() {
@@ -161,7 +169,9 @@ int main() {
 	cout << "Nhap vao mot so nguyen:";
 	cin >> n;
 	int arr[MAX];
-	NhapMang(arr, n,e);
-	XuatMang(arr, n,e);
+	int chan[MAX];
+	int le[MAX];
+	NhapMang(arr, n, e);
+	XuatMang(arr, n, e);
 }
 ```
